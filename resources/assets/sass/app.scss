@@ -1,0 +1,16 @@
+// @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+@import "components/materialize";
+
+.input-field {
+  &.col {
+    &.search {
+      margin-top: 45px;
+    }
+  }
+}
+
+.success-chart,
+.fail-chart {
+  text-align: center;
+}

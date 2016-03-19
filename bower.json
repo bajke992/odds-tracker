@@ -1,0 +1,9 @@
+{
+  "name": "Beba",
+  "version": "0.0.1",
+  "dependencies": {
+    "Materialize": "materialize#~0.97.5",
+    "radial-progress-chart": "~0.0.3"
+  },
+  "devDependencies": {}
+}
