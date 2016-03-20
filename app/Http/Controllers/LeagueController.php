@@ -31,7 +31,7 @@ class LeagueController extends Controller
      */
     public function all()
     {
-        $leagues = array_reverse($this->leagueRepo->getAll()->toArray());
+        $leagues = $this->leagueRepo->getAll();
 
         return view('leagues.all', [
             'leagues' => $leagues

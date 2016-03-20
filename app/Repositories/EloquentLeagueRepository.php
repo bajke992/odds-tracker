@@ -27,7 +27,7 @@ class EloquentLeagueRepository implements LeagueRepositoryInterface
      */
     public function getAll()
     {
-        return $this->league->all();
+        return $this->league->all()->reverse();
     }
 
     /**

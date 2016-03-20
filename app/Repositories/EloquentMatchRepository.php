@@ -31,7 +31,7 @@ class EloquentMatchRepository implements MatchRepositoryInterface
      */
     public function getAll()
     {
-        return $this->match->all();
+        return $this->match->all()->reverse();
     }
 
     /**
