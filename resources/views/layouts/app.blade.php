@@ -93,9 +93,9 @@
             </div>
         </nav>
 
-        <div class="container">
+        {{--<div class="container">--}}
             @yield('content')
-        </div>
+        {{--</div>--}}
 
         <!-- JavaScripts -->
         <script src="{{ asset('build/js/jquery.min.js') }}"></script>
