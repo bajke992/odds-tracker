@@ -149,8 +149,13 @@
                 }
 
                 $high = ($fail/$success)*100;
-                $successResult = $high;
-                $failResult = 100 - $high;
+                if($high > 50){
+                    $successResult = $high;
+                    $failResult = 100 - $high;
+                } else {
+                    $failResult = $high;
+                    $successResult = 100 - $high;
+                }
 
                 return {success: Math.round($successResult * 100) / 100, fail: Math.round($failResult * 100) / 100};
             }
@@ -161,8 +166,13 @@
                 }
 
                 $high = ($success/$fail)*100;
-                $failResult = $high;
-                $successResult = 100 - $failResult;
+                if($high > 50) {
+                    $failResult = $high;
+                    $successResult = 100 - $failResult;
+                } else {
+                    $successResult = $high;
+                    $failResult = 100 - $high;
+                }
 
                 return {success: Math.round($successResult * 100) / 100, fail: Math.round($failResult * 100) / 100};
             }
