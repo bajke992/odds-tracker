@@ -148,44 +148,12 @@
             var failChart = new RadialProgressChart('.fail-chart', $failSettings);
         });
 
-        function calculatePercent($success, $fail){
-            var $successResult, $failResult;
-            var $high;
-            if($success > $fail) {
-                if($fail === 0){
-                    return {success: 100, fail: 0};
-                }
+        function calculatePercent($success, $fail) {
+            var total = $success + $fail;
+            var successResult = Math.round((($success * 100) / total) * 100) / 100;
+            var failResult = Math.round((($fail * 100) / total) * 100) / 100;
 
-                $high = ($fail/$success)*100;
-                if($high > 50){
-                    $successResult = $high;
-                    $failResult = 100 - $high;
-                } else {
-                    $failResult = $high;
-                    $successResult = 100 - $high;
-                }
-
-                return {success: Math.round($successResult * 100) / 100, fail: Math.round($failResult * 100) / 100};
-            }
-
-            if($fail > $success) {
-                if($success === 0){
-                    return {success: 0, fail: 100};
-                }
-
-                $high = ($success/$fail)*100;
-                if($high > 50) {
-                    $failResult = $high;
-                    $successResult = 100 - $failResult;
-                } else {
-                    $successResult = $high;
-                    $failResult = 100 - $high;
-                }
-
-                return {success: Math.round($successResult * 100) / 100, fail: Math.round($failResult * 100) / 100};
-            }
-
-            return {success: 50, fail: 50};
+            return {success: successResult, fail: failResult};
         }
     </script>
 @endsection
