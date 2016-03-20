@@ -40,10 +40,10 @@ class MatchController extends Controller
      */
     public function all()
     {
-        $matches = $this->matchRepo->getAll();
+        $matches = array_reverse($this->matchRepo->getAll()->toArray());
 
         return view('matches.all', [
-            'matches' => array_reverse($matches)
+            'matches' => $matches
         ]);
     }
 
