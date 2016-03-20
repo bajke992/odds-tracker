@@ -152,7 +152,7 @@
                 $successResult = $high;
                 $failResult = 100 - $high;
 
-                return {success: $successResult, fail: $failResult};
+                return {success: Math.round($successResult * 100) / 100, fail: Math.round($failResult * 100) / 100};
             }
 
             if($fail > $success) {
@@ -164,7 +164,7 @@
                 $failResult = $high;
                 $successResult = 100 - $failResult;
 
-                return {success: $successResult, fail: $failResult};
+                return {success: Math.round($successResult * 100) / 100, fail: Math.round($failResult * 100) / 100};
             }
 
             return {success: 50, fail: 50};
