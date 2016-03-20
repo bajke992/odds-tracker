@@ -35,6 +35,10 @@
                         <a href="{{ URL::route($action['route'], ['id' => $item->id]) }}" class="btn-floating red lighten-2 @if(isset($action['tooltip'])) tooltipped @endif" @if(isset($action['tooltip'])) data-position="top" @endif @if(isset($action['tooltip'])) data-tooltip="{{$action['tooltip']}}" @endif><i class="material-icons">{!! $action['icon'] !!}</i></a>
                     @endforeach
                 </td>
+                @if($item->comment !== null)
+                    <td class="comment light-blue tooltipped" data-position="left"
+                        data-tooltip="{{ $item->comment }}"></td>
+                @endif
             </tr>
         @empty
             <tr>

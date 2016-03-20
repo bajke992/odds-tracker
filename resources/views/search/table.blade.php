@@ -34,6 +34,10 @@
                         <td>
                             {!! $item->league->name !!}
                         </td>
+                        @if($item->comment !== null)
+                            <td class="comment light-blue tooltipped" data-position="left"
+                                data-tooltip="{{ $item->comment }}"></td>
+                        @endif
                     </tr>
                 @endif
             @empty
@@ -77,6 +81,10 @@
                         <td>
                             {!! $item->league->name !!}
                         </td>
+                        @if($item->comment !== null)
+                            <td class="comment light-blue tooltipped" data-position="left"
+                                data-tooltip="{{ $item->comment }}"></td>
+                        @endif
                     </tr>
                 @endif
             @empty

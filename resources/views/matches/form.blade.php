@@ -57,6 +57,12 @@
             </div>
             <div class="row">
                 <div class="input-field col s12">
+                    <textarea id="comment" class="materialize-textarea" name="comment">{{ $match->comment }}</textarea>
+                    <label for="comment">Komentar</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
                     <button class="btn pull-right" type="submit">Sačuvaj</button>
                 </div>
             </div>

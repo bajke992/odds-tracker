@@ -160,6 +160,22 @@ class Match extends Model
     }
 
     /**
+     * @return string
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param string $comment
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+    }
+
+    /**
      * @return integer
      */
     public function getLeagueId()
@@ -188,12 +204,12 @@ class Match extends Model
      * @param string $result
      * @param float  $x
      * @param float  $y
-     * @param float  $parameter
      * @param string $type
      * @param string $status
      * @param League $league
      *
      * @return static
+     * @internal param float $parameter
      */
     public static function make($odds = '', $result = '', $x = 0.0, $y = 0.0, $type = 'none', $status = 'waiting', $league)
     {

@@ -82,7 +82,7 @@ class MatchController extends Controller
             'result',
             'x',
             'y',
-            'parameter',
+            'comment',
             'type',
             'status',
             'league_id'
@@ -97,6 +97,10 @@ class MatchController extends Controller
             $input['status'],
             $this->leagueRepo->findOrFail($input['league_id'])
         );
+
+        if (isset($input['comment']) && ($input['comment'] !== null && $input['comment'] !== '')) {
+            $match->setComment($input['comment']);
+        }
 
         $this->matchRepo->save($match);
 
@@ -147,6 +151,7 @@ class MatchController extends Controller
             'result',
             'x',
             'y',
+            'comment',
             'type',
             'status',
             'league_id'
@@ -162,6 +167,10 @@ class MatchController extends Controller
         $match->setType($input['type']);
         $match->setStatus($input['status']);
         $match->setLeagueId($input['league_id']);
+
+        if (isset($input['comment']) && ($input['comment'] !== null && $input['comment'] !== '')) {
+            $match->setComment($input['comment']);
+        }
 
         $this->matchRepo->save($match);
 

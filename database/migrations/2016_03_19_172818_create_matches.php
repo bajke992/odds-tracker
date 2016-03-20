@@ -21,6 +21,7 @@ class CreateMatches extends Migration
             $table->string('result')->nullable();
             $table->string('type');
             $table->string('status');
+            $table->text('comment')->nullable();
             $table->integer('league_id');
             $table->timestamps();
         });
