@@ -111,6 +111,12 @@ class LeagueController extends Controller
     public function delete(DeleteLeagueRequest $request, $id)
     {
         $league = $this->leagueRepo->findOrFail($id);
+
+        if (count($league->matches) !== 0) {
+            session()->flash('error', 'Odabrana liga nije obrisana! Liga nije prazna, prebaci utakmice ili ih obrisi.');
+            return redirect()->route('leagues.home');
+        }
+
         $this->leagueRepo->delete($league);
 
         session()->flash('message', 'Odabrana liga je uspešno obrisana!');
