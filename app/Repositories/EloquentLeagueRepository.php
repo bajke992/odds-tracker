@@ -92,4 +92,13 @@ class EloquentLeagueRepository implements LeagueRepositoryInterface
         return $query->orderBy('name')->take(5)->get();
 
     }
+
+    /**
+     * @return Collection|League[]
+     */
+    public function getAllAlpha()
+    {
+        $query = $this->league->query();
+        return $query->orderBy('name')->get();
+    }
 }

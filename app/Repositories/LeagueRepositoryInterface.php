@@ -17,6 +17,11 @@ interface LeagueRepositoryInterface
     public function getLast5Alpha();
 
     /**
+     * @return Collection|League[]
+     */
+    public function getAllAlpha();
+
+    /**
      * @param integer $id
      *
      * @return League|null

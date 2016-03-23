@@ -53,7 +53,7 @@ class MatchController extends Controller
     public function create()
     {
         $match    = new Match();
-        $leagues  = $this->leagueRepo->getAll();
+        $leagues  = $this->leagueRepo->getAllAlpha();
         $types    = $match::$VALID_TYPES;
         $statuses = $match::$VALID_STATUSES;
 
