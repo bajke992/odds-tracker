@@ -101,4 +101,13 @@ class EloquentLeagueRepository implements LeagueRepositoryInterface
         $query = $this->league->query();
         return $query->orderBy('name')->get();
     }
+
+    /**
+     * @return Collection|League[]
+     */
+    public function getLast5()
+    {
+        $query = $this->league->query();
+        return $query->orderBy('created_at', 'DESC')->take(5)->get();
+    }
 }
