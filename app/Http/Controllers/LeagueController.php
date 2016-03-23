@@ -31,7 +31,7 @@ class LeagueController extends Controller
      */
     public function all()
     {
-        $leagues = $this->leagueRepo->getAll();
+        $leagues = $this->leagueRepo->getLast5Alpha();
 
         return view('leagues.all', [
             'leagues' => $leagues

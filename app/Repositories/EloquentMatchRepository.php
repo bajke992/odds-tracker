@@ -237,4 +237,13 @@ class EloquentMatchRepository implements MatchRepositoryInterface
         $query->orderBy($orderBy, $order);
         return $query->get();
     }
+
+    /**
+     * @return Collection|Match[]
+     */
+    public function getLast5()
+    {
+        $query = $this->match->query();
+        return $query->orderBy('created_at', 'DESC')->take(5)->get();
+    }
 }

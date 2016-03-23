@@ -40,7 +40,7 @@ class MatchController extends Controller
      */
     public function all()
     {
-        $matches = $this->matchRepo->getAll();
+        $matches = $this->matchRepo->getLast5();
 
         return view('matches.all', [
             'matches' => $matches

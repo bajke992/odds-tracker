@@ -15,6 +15,11 @@ interface MatchRepositoryInterface
     public function getAll();
 
     /**
+     * @return Collection|Match[]
+     */
+    public function getLast5();
+
+    /**
      * @param integer $id
      *
      * @return Match

@@ -82,4 +82,14 @@ class EloquentLeagueRepository implements LeagueRepositoryInterface
     {
         $league->delete();
     }
+
+    /**
+     * @return Collection|League[]
+     */
+    public function getLast5Alpha()
+    {
+        $query = $this->league->query();
+        return $query->orderBy('name')->take(5)->get();
+
+    }
 }

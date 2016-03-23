@@ -43,16 +43,16 @@ class HomeController extends Controller
         $types            = Match::$VALID_TYPES;
         $leagues          = $this->leagueRepo->getAll();
         $decoratedLeagues = with(new SelectboxDecorator($leagues))->prepare();
-        $matches          = $this->matchRepo->search();
+        $matches          = []; //$this->matchRepo->search();
 
         $success = 0;
-        foreach ($matches as $object) {
-            if ($object->getStatus() == Match::STATUS_IN_PLAY) $success++;
-        }
+//        foreach ($matches as $object) {
+//            if ($object->getStatus() == Match::STATUS_IN_PLAY) $success++;
+//        }
         $fail = 0;
-        foreach ($matches as $object) {
-            if ($object->getStatus() == Match::STATUS_FINISHED) $fail++;
-        }
+//        foreach ($matches as $object) {
+//            if ($object->getStatus() == Match::STATUS_FINISHED) $fail++;
+//        }
 
         return view('search.list', [
             'types'   => $types,
