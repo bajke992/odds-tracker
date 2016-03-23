@@ -41,7 +41,7 @@ class HomeController extends Controller
     public function search()
     {
         $types            = Match::$VALID_TYPES;
-        $leagues          = $this->leagueRepo->getAll();
+        $leagues          = $this->leagueRepo->getAllAlpha();
         $decoratedLeagues = with(new SelectboxDecorator($leagues))->prepare();
         $matches          = []; //$this->matchRepo->search();
 
