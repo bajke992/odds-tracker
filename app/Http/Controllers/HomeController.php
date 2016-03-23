@@ -89,7 +89,7 @@ class HomeController extends Controller
         }
 
         $types            = Match::$VALID_TYPES;
-        $leagues          = $this->leagueRepo->getAll();
+        $leagues          = $this->leagueRepo->getAllAlpha();
         $decoratedLeagues = with(new SelectboxDecorator($leagues))->prepare();
 
         return view('search.list', [
