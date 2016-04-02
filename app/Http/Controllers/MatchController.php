@@ -194,7 +194,7 @@ class MatchController extends Controller
         /** @var Match $newMatch */
         $newMatch = $match->replicate();
 
-        $leagues  = $this->leagueRepo->getAll();
+        $leagues  = $this->leagueRepo->getAllAlpha();
         $types    = $match::$VALID_TYPES;
         $statuses = $match::$VALID_STATUSES;
 
