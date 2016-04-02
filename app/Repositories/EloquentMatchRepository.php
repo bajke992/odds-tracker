@@ -246,4 +246,46 @@ class EloquentMatchRepository implements MatchRepositoryInterface
         $query = $this->match->query();
         return $query->orderBy('created_at', 'DESC')->take(5)->get();
     }
+
+    /**
+     * @return Collection|Match[]
+     */
+    public function findByMyGames()
+    {
+        $query = $this->match->query();
+        return $query->where('my_games', 1)
+            ->groupBy('odds')
+            ->groupBy('parameter')
+            ->get();
+    }
+
+    /**
+     * @return Collection|Match[]
+     * @throws EntityNotFoundException
+     */
+    public function findByMyGamesOrFail()
+    {
+        $matches = $this->findByMyGames();
+        if ($matches === null) {
+            throw new EntityNotFoundException("Matches not found.");
+        }
+
+        return $matches;
+    }
+
+    /**
+     * @param array $params
+     *
+     * @return Collection|Match[]
+     */
+    public function groupMatchesByParams($params)
+    {
+        $query = $this->match->query();
+
+        foreach ($params as $k => $v) {
+            $query->where($k, $v);
+        }
+
+        return $query->get();
+    }
 }

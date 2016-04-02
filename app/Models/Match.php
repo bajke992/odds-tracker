@@ -19,6 +19,9 @@ class Match extends Model
     const STATUS_IN_PLAY = 'success';
     const STATUS_FINISHED = 'fail';
 
+    const MY_GAMES_YES = 1;
+    const MY_GAMES_NO = 0;
+
     static $VALID_TYPES = [
         self::TYPE_NONE,
         self::TYPE_HOME,
@@ -29,6 +32,11 @@ class Match extends Model
         self::STATUS_WAITING,
         self::STATUS_IN_PLAY,
         self::STATUS_FINISHED
+    ];
+
+    static $VALID_MY_GAMES = [
+        self::MY_GAMES_YES,
+        self::MY_GAMES_NO
     ];
 
     /**
@@ -176,6 +184,22 @@ class Match extends Model
     }
 
     /**
+     * @return mixed
+     */
+    public function getMyGames()
+    {
+        return $this->my_games;
+    }
+
+    /**
+     * @param $my_games
+     */
+    public function setMyGames($my_games)
+    {
+        $this->my_games = $my_games;
+    }
+
+    /**
      * @return integer
      */
     public function getLeagueId()
@@ -189,6 +213,15 @@ class Match extends Model
     public function setLeagueId($league_id)
     {
         $this->league_id = $league_id;
+    }
+
+    public function toggleMyGames()
+    {
+        if ($this->my_games == self::MY_GAMES_NO) {
+            return $this->my_games = self::MY_GAMES_YES;
+        } else {
+            return $this->my_games = self::MY_GAMES_NO;
+        }
     }
 
     /**

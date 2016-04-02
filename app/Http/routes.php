@@ -32,6 +32,10 @@ Route::group(['middleware' => ['web']], function () {
 
 Route::group(['middleware' => 'web'], function () {
 
+    Route::group(['prefix' => 'ajax'], function () {
+        Route::get('my-games-toggle/{id}', ['as' => 'match.my-games.toggle', 'uses' => 'MatchController@myGamesToggle']);
+    });
+
     Route::group(['prefix' => 'leagues'], function () {
         Route::get('/', ['as' => 'leagues.home', 'uses' => 'LeagueController@all']);
         Route::get('create', ['as' => 'leagues.create', 'uses' => 'LeagueController@create']);
@@ -47,11 +51,14 @@ Route::group(['middleware' => 'web'], function () {
         Route::post('create', ['as' => 'matches.create.post', 'uses' => 'MatchController@postCreate']);
         Route::get('update/{id}', ['as' => 'matches.update', 'uses' => 'MatchController@update']);
         Route::post('update/{id}', ['as' => 'matches.update.post', 'uses' => 'MatchController@postUpdate']);
+        Route::get('duplicate/{id}', ['as' => 'matches.duplicate', 'uses' => 'MatchController@duplicate']);
+        Route::post('duplicate/{id}', ['as' => 'matches.duplicate.post', 'uses' => 'MatchController@postDuplicate']);
         Route::get('delete/{id}', ['as' => 'matches.delete', 'uses' => 'MatchController@delete']);
     });
 
     Route::get('/', ['as' => 'search', 'uses' => 'HomeController@search']);
     Route::post('/', ['as' => 'search.post', 'uses' => 'HomeController@postSearch']);
+    Route::get('my-games', ['as' => 'my-games', 'uses' => 'HomeController@myGames']);
 //    Route::get('search', ['as' => 'search', 'uses' => 'HomeController@search']);
 //    Route::post('search', ['as' => 'search.post', 'uses' => 'HomeController@postSearch']);
 });

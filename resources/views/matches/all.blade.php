@@ -15,6 +15,7 @@
         'items' => $matches,
         'actions' => [
             ['icon' => 'mode_edit', 'route' => 'matches.update', 'tooltip' => 'Izmeni utakmicu'],
+            ['icon' => 'replay', 'route' => 'matches.duplicate', 'tooltip' => 'Dupliraj utakmicu'],
             ['icon' => 'delete', 'route' => 'matches.delete', 'tooltip' => 'Obriši utakmicu']
         ]
     ])

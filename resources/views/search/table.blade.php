@@ -14,8 +14,11 @@
             </thead>
             <tbody>
             @forelse($items as $item)
-                @if($item->status === 'success')
+                @if($item->status === \App\Models\Match::STATUS_IN_PLAY)
                     <tr>
+                        <td>
+                            @include('components.checkbox', ['id' => $item->id, 'checked' => $item->my_games, 'label' => ''])
+                        </td>
                         <td>
                             {!! $item->odds !!}
                         </td>
@@ -25,14 +28,20 @@
                         <td>
                             {!! $item->parameter !!}
                         </td>
-                        <td>
-                            {!! ucfirst($item->type) !!}
-                        </td>
                         <td class="@if($item->status === 'success')light-green white-text @elseif($item->status === 'fail')red lighten-2 white-text @endif">
-                            {!! ucfirst($item->status) !!}
+                            {!! ucfirst($item->type) !!}
                         </td>
                         <td>
                             {!! $item->league->name !!}
+                        </td>
+                        <td>
+                            @foreach($actions as $action)
+                                <a href="{{ URL::route($action['route'], ['id' => $item->id]) }}"
+                                   class="btn-floating red lighten-2 @if(isset($action['tooltip'])) tooltipped @endif"
+                                   @if(isset($action['tooltip'])) data-position="top"
+                                   @endif @if(isset($action['tooltip'])) data-tooltip="{{$action['tooltip']}}" @endif><i
+                                            class="material-icons">{!! $action['icon'] !!}</i></a>
+                            @endforeach
                         </td>
                         @if($item->comment !== null)
                             <td class="comment light-blue tooltipped" data-position="left"
@@ -61,8 +70,11 @@
             </thead>
             <tbody>
             @forelse($items as $item)
-                @if($item->status === 'fail')
+                @if($item->status === \App\Models\Match::STATUS_FINISHED)
                     <tr>
+                        <td>
+                            @include('components.checkbox', ['id' => $item->id, 'checked' => $item->my_games, 'label' => ''])
+                        </td>
                         <td>
                             {!! $item->odds !!}
                         </td>
@@ -72,14 +84,20 @@
                         <td>
                             {!! $item->parameter !!}
                         </td>
-                        <td>
-                            {!! ucfirst($item->type) !!}
-                        </td>
                         <td class="@if($item->status === 'success')light-green white-text @elseif($item->status === 'fail')red lighten-2 white-text @endif">
-                            {!! ucfirst($item->status) !!}
+                            {!! ucfirst($item->type) !!}
                         </td>
                         <td>
                             {!! $item->league->name !!}
+                        </td>
+                        <td>
+                            @foreach($actions as $action)
+                                <a href="{{ URL::route($action['route'], ['id' => $item->id]) }}"
+                                   class="btn-floating red lighten-2 @if(isset($action['tooltip'])) tooltipped @endif"
+                                   @if(isset($action['tooltip'])) data-position="top"
+                                   @endif @if(isset($action['tooltip'])) data-tooltip="{{$action['tooltip']}}" @endif><i
+                                            class="material-icons">{!! $action['icon'] !!}</i></a>
+                            @endforeach
                         </td>
                         @if($item->comment !== null)
                             <td class="comment light-blue tooltipped" data-position="left"
@@ -103,6 +121,22 @@
     @parent
     <script>
         $(document).ready(function () {
+            $('[id^=filled-in-box-]').on('change', function () {
+                $id = $(this).data('id');
+
+                $.ajax({
+                    url: '{{ URL::route('match.my-games.toggle', ['']) }}/' + $id,
+                    type: 'GET',
+                    success: function (response) {
+                        if (response.toggle == 1) {
+                            flashMessage('Utakmica dodata u "Moje igre"!');
+                        } else {
+                            flashMessage('Utakmica uklonjena iz "Moje igre"!');
+                        }
+                    }
+                });
+            });
+
             $successCount = {!! $success !!};
             $failCount = {!! $fail !!};
 

@@ -6,6 +6,7 @@ use App\Decorators\SelectboxDecorator;
 use App\Http\Requests;
 use App\Http\Requests\CreateMatchRequest;
 use App\Http\Requests\DeleteMatchRequest;
+use App\Http\Requests\DuplicateMatchRequest;
 use App\Http\Requests\UpdateMatchRequest;
 use App\Models\Match;
 use App\Repositories\LeagueRepositoryInterface;
@@ -180,6 +181,79 @@ class MatchController extends Controller
     }
 
     /**
+     * @param DuplicateMatchRequest $request
+     * @param string                $id
+     *
+     * @return Response
+     */
+    public function duplicate(DuplicateMatchRequest $request, $id)
+    {
+        $match = $this->matchRepo->findOrFail($id);
+        $match->load('league');
+
+        /** @var Match $newMatch */
+        $newMatch = $match->replicate();
+
+        $leagues  = $this->leagueRepo->getAll();
+        $types    = $match::$VALID_TYPES;
+        $statuses = $match::$VALID_STATUSES;
+
+        $decoratedLeagues = with(new SelectboxDecorator($leagues))->prepare();
+        $selectedType     = $match->getType();
+        $selectedStatus   = $match->getStatus();
+        $selectedLeague   = $match->league->getId();
+
+        return view('matches.form', [
+            'match'          => $newMatch,
+            'leagues'        => $decoratedLeagues,
+            'types'          => $types,
+            'statuses'       => $statuses,
+            'selectedType'   => $selectedType,
+            'selectedStatus' => $selectedStatus,
+            'selectedLeague' => $selectedLeague
+        ]);
+    }
+
+    /**
+     * @param DuplicateMatchRequest $request
+     *
+     * @return Response
+     */
+    public function postDuplicate(DuplicateMatchRequest $request)
+    {
+        $input = $request->only([
+            'odds',
+            'result',
+            'x',
+            'y',
+            'comment',
+            'type',
+            'status',
+            'league_id'
+        ]);
+
+        $match = Match::make(
+            $input['odds'],
+            $input['result'],
+            $input['x'],
+            $input['y'],
+            $input['type'],
+            $input['status'],
+            $this->leagueRepo->findOrFail($input['league_id'])
+        );
+
+        if (isset($input['comment']) && ($input['comment'] !== null && $input['comment'] !== '')) {
+            $match->setComment($input['comment']);
+        }
+
+        $this->matchRepo->save($match);
+
+        session()->flash('message', 'Utakmica je uspešno duplicirana!');
+
+        return redirect()->route('matches.home');
+    }
+
+    /**
      * @param DeleteMatchRequest $request
      * @param                    $id
      *
@@ -193,5 +267,18 @@ class MatchController extends Controller
         session()->flash('message', 'Odabrana utakmica je uspešno obrisana!');
 
         return redirect()->route('matches.home');
+    }
+
+    public function myGamesToggle($id)
+    {
+        $match = $this->matchRepo->findOrFail($id);
+
+        $match->toggleMyGames();
+        $this->matchRepo->save($match);
+
+        return [
+            'status' => 'OK',
+            'toggle' => $match->getMyGames()
+        ];
     }
 }

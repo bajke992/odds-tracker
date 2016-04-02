@@ -87,6 +87,10 @@
                             'title' => 'Utakmice',
                             'route' => 'matches.home'
                         ],
+                        [
+                            'title' => 'Moje igre',
+                            'route' => 'my-games'
+                        ],
                     ],
 
                 ])

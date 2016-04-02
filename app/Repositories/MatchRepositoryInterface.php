@@ -110,6 +110,24 @@ interface MatchRepositoryInterface
     public function findByLeagueOrFail(League $league);
 
     /**
+     * @return Collection|Match[]
+     */
+    public function findByMyGames();
+
+    /**
+     * @return Collection|Match[]
+     * @throws EntityNotFoundException
+     */
+    public function findByMyGamesOrFail();
+
+    /**
+     * @param array $params
+     *
+     * @return Collection|Match[]
+     */
+    public function groupMatchesByParams($params);
+
+    /**
      * @param Match $match
      */
     public function save(Match $match);
@@ -122,8 +140,8 @@ interface MatchRepositoryInterface
     /**
      * @param string $odds
      * @param string $parameter
-     * @param string   $type
-     * @param string   $league_id
+     * @param string $type
+     * @param string $league_id
      *
      * @return Collection|Match[]
      */
