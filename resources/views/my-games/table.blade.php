@@ -1,8 +1,4 @@
 <div class="row">
-    {{--<div class="row col s12">--}}
-    {{--<div class="col s6 success-chart"></div>--}}
-    {{--<div class="col s6 fail-chart"></div>--}}
-    {{--</div>--}}
     <div class="col s12">
         <table class="bordered centered">
             <thead>
@@ -22,17 +18,17 @@
                         {{ $item['parameter'] }}
                     </td>
                     <td>
-                        {{ $item['home']['success'] }}%
+                        {{ round($item['home']['success'], 2) }}%
                     </td>
                     <td>
-                        {{ $item['home']['fail'] }}%
+                        {{ round($item['home']['fail'], 2) }}%
                     </td>
                     <td class="red lighten-2"></td>
                     <td>
-                        {{ $item['away']['success'] }}%
+                        {{ round($item['away']['success'], 2) }}%
                     </td>
                     <td>
-                        {{ $item['away']['fail'] }}%
+                        {{ round($item['away']['fail'], 2) }}%
                     </td>
                 </tr>
             @empty
