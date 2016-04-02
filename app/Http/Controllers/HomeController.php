@@ -101,7 +101,6 @@ class HomeController extends Controller
         $matches = $this->matchRepo->findByMyGamesOrFail();
         $result  = [];
 
-
         foreach ($matches as $match) {
             $home = $this->matchRepo->groupMatchesByParams([
                 'odds'      => $match->odds,
@@ -146,8 +145,6 @@ class HomeController extends Controller
             ];
         }
 
-//        dd($result);
-
         return view('my-games.list', [
             'items' => $result,
         ]);
@@ -160,7 +157,6 @@ class HomeController extends Controller
         $fail    = 0;
 
         if ($win !== 0 && $loose !== 0) {
-
             $success = ((($win * 100) / $total) * 100) / 100;
             $fail    = ((($loose * 100) / $total) * 100) / 100;
         } else {

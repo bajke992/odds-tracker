@@ -283,7 +283,10 @@ class EloquentMatchRepository implements MatchRepositoryInterface
         $query = $this->match->query();
 
         foreach ($params as $k => $v) {
-            $query->where($k, $v);
+            if ($k == 'parameter')
+                $query->where($k, 'LIKE', $v);
+            else
+                $query->where($k, $v);
         }
 
         return $query->get();
